@@ -9,16 +9,19 @@ import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+	private static Scene mainScene;
+
 	@Override
-	public void start(Stage primaryStage) {
+	public synchronized void start(Stage primaryStage) { // garante que o processamento não vai ser interrompido.
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/mainView.fxml"));
 			ScrollPane scrollPane = loader.load();
-			
-			scrollPane.setFitToHeight(true); // ajusta o tamanho dos menus para ocupar a tela inteira. 
+
+			scrollPane.setFitToHeight(true); // ajusta o tamanho dos menus para ocupar a tela inteira.
 			scrollPane.setFitToWidth(true);
-			
-			Scene mainScene = new Scene(scrollPane);
+
+			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Sample JavaFX application");
 			primaryStage.show();
@@ -26,6 +29,10 @@ public class Main extends Application {
 
 			e.printStackTrace();
 		}
+	}
+
+	public static Scene getMainScene() {
+		return mainScene;
 	}
 
 	public static void main(String[] args) {
