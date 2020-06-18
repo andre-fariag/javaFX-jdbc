@@ -2,7 +2,7 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Department implements Serializable {
+public class Department implements Serializable{ // permite que o objeto seja convertido para um formato que possa trafegar em redes, pastas etc.
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,4 +62,5 @@ public class Department implements Serializable {
 	public String toString() {
 		return "Department [id=" + id + ", name=" + name + "]";
 	}
+	
 }
