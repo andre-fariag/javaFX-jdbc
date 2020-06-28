@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,6 +42,15 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private TableColumn<Seller, String> tableColumnName;
 
 	@FXML
+	private TableColumn<Seller, String> tableColumnEmail;
+
+	@FXML
+	private TableColumn<Seller, Date> tableColumnBirthDate;
+
+	@FXML
+	private TableColumn<Seller, Double> tableColumnBaseSalary;
+
+	@FXML
 	private TableColumn<Seller, Seller> tableColumnEDIT;
 
 	@FXML
@@ -70,8 +80,13 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 	private void initializeNodes() { // inicia o comportamento das colunas.
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		tableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+		Utils.formatTableColumnDate(tableColumnBirthDate, "dd/MM/yyyy");
+		tableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalaray"));
+		Utils.formatTableColumnDouble(tableColumnBaseSalary, 2);
+		
 		// fazer o tamanho da TableView ser igual ao da Janela
 		Stage stage = (Stage) Main.getMainScene().getWindow(); // pega o tamanho da janela principal.
 		tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
@@ -132,8 +147,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/SellerForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/SellerForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
